@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Override
-    public UserDto createUser(UserDto userDto) {
+    public UserDto
+    createUser(UserDto userDto) {
       Optional<User> optionalUser = userRepository.findByPersonalNumber(userDto.getPersonalNumber());
         if(optionalUser.isPresent()){
             throw new PersonalNumberExistsException("PersonalNumber Already Exists for User");
