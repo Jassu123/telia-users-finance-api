@@ -79,6 +79,14 @@ public class UserController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(userDisplayDtoList, HttpStatus.OK);
     }
+    @Operation(
+            summary = "Build Get All Users REST API  with fullname and personal number",
+            description = "Build Get All Users REST API  with fullname and personal number from the database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP Status 200 SUCCESS"
+    )
     // Build Get All Users REST API  with fullname and personal number
     // http://localhost:8080/api/users/getbynameandpersonalnumber?name=Siva Chkra&personalNumber=199406050030&sortDirection=ASC&sortField=fullName
 
