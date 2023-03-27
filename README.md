@@ -1,6 +1,6 @@
 # telia-users-finance-api
 
-RRunning the application
+Running the application
 To run the application, follow these steps:
 -----------------------------------------
 
