@@ -19,10 +19,15 @@ Available endpoints
 The following endpoints are available in this application:
 
 GET /api/users: Get All Users REST API is used to get a all the users from the database.
+
 GET /api/users/{id}: Get User By ID REST API is used to get a single user from the database.
+
 POST /api/users: Create User REST API is used to save user information in a database.
+
 PUT /api/users/{id}: Update User REST API is used to update a particular user in the database.
+
 DELETE /api/users/{id}: Deletes a user from the database.
+
 GET /api/users/getbynameandpersonalnumber:Build Get All Users REST API  with fullname and personal number
 
 Documentation:
