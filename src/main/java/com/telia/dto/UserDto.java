@@ -1,8 +1,14 @@
 package com.telia.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Past;
 import lombok.*;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 @Schema(
         description = "UserDto Model Information"
@@ -12,6 +18,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Data
 public class UserDto {
 
     private Long id;
@@ -29,8 +36,10 @@ public class UserDto {
     @Schema(
             description = "User Date of birth"
     )
-
-    private String dateOfBirth;
+    //@NotEmpty(message = "Date of birth shouldn't be empty")
+    @Past(message = "Date of birth must be in the past")
+    @Temporal(TemporalType.DATE)
+    private LocalDate dateOfBirth;
     @Schema(
             description = "User Email Adress"
     )

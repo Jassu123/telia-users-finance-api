@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,7 @@ public class UserRepositoryTests {
        user = User.builder()
                 .personalNumber(199006050018L)
                 .fullName("Denis Lean")
-                .dateOfBirth("12131992")
+                .dateOfBirth(LocalDate.of(1992, 3, 12))
                .emailAddress("denis@leal.com")
                 .phoneNumber("9553069897")
                 .build();
@@ -36,7 +37,7 @@ public class UserRepositoryTests {
         User user = User.builder()
                 .personalNumber(1995006050018L)
                 .fullName("Syam Padamata")
-                .dateOfBirth("121319923")
+                .dateOfBirth(LocalDate.of(1992, 3, 12))
                 .emailAddress("syam@padamata.com")
                 .phoneNumber("95530698978")
                 .build();
@@ -55,7 +56,7 @@ public class UserRepositoryTests {
         User user = User.builder()
                 .personalNumber(1995006050018L)
                 .fullName("Per John")
-                .dateOfBirth("121319923")
+                .dateOfBirth(LocalDate.of(1992, 3, 12))
                 .emailAddress("per@John.com")
                 .phoneNumber("95530698978")
                 .build();
@@ -78,7 +79,7 @@ public class UserRepositoryTests {
         User user = User.builder()
                 .personalNumber(1995006050018L)
                 .fullName("Denis Lean1")
-                .dateOfBirth("121319923")
+                .dateOfBirth(LocalDate.of(1992, 3, 12))
                 .emailAddress("denis@leal.com")
                 .phoneNumber("95530698978")
                 .build();
@@ -95,15 +96,16 @@ public class UserRepositoryTests {
         assertThat(updatedUser.getFullName()).isEqualTo("Ram");
     }
 
-    // JUnit test for delete employee operation
+    // JUnit test for delete user operation
     @DisplayName("JUnit test for delete user operation")
     @Test
-    public void givenEmployeeObject_whenDelete_thenRemoveEmployee(){
+    public void givenUserObject_whenDelete_thenRemoveUser(){
         // given - precondition or setup
         User user = User.builder()
                 .personalNumber(1995006050018L)
                 .fullName("Denis Lean1")
-                .dateOfBirth("121319923")
+                .dateOfBirth(LocalDate.of(1992, 3, 12)
+                )
                 .emailAddress("denis@leal.com")
                 .phoneNumber("95530698978")
                 .build();
