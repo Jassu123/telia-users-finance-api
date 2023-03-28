@@ -13,6 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
@@ -42,7 +44,7 @@ public class UserServiceTests {
                 .personalNumber(199006050018L)
                 .fullName("Denis Lean")
                 .emailAddress("denis.leal@gmail.com")
-                .dateOfBirth("12131992")
+                .dateOfBirth(LocalDate.of(1992, 3, 12))
                 .phoneNumber("9553069897")
                 .build();
         user2 = User.builder()
@@ -50,7 +52,7 @@ public class UserServiceTests {
                 .personalNumber(199206010023L)
                 .fullName("John Doe")
                 .emailAddress("john.doe@gmail.com")
-                .dateOfBirth("07081990")
+                .dateOfBirth(LocalDate.of(1992, 3, 12))
                 .phoneNumber("9553069898")
                 .build();
         usersList = List.of(user, user2);
@@ -60,7 +62,7 @@ public class UserServiceTests {
                 .personalNumber(199006050018L)
                 .fullName("Denis Lean")
                 .emailAddress("denis.leal.updated@gmail.com")
-                .dateOfBirth("12131992")
+                .dateOfBirth(LocalDate.of(1992, 3, 12))
                 .phoneNumber("9553069897")
                 .build();
     }
@@ -69,18 +71,18 @@ public class UserServiceTests {
     @DisplayName("JUnit test for save User method")
     @ParameterizedTest
     @CsvSource({
-            "1, 199006050018, 'Denis Lean', 'denis.leal@gmail.com', '12131992', '9553069897'",
-            "2, 199206010023, 'John Doe', 'john.doe@gmail.com', '07081990', '9553069898'"
+            "1, 199006050018, 'Denis Lean', 'denis.leal@gmail.com', '1992-03-12', '9553069897'",
+            "2, 199206010023, 'John Doe', 'john.doe@gmail.com', '1992-03-12', '9553069898'"
     })
     public void givenUserObject_whenSaveUser_thenReturnUserObject(
-            Long id, Long personalNumber, String fullName, String emailAddress, String dateOfBirth, String phoneNumber) {
+            Long id, Long personalNumber, String fullName, String emailAddress, LocalDate dateOfBirth, String phoneNumber) {
         // given - precondition or setup
         UserDto userDto = UserDto.builder()
                 .id(id)
                 .personalNumber(personalNumber)
                 .fullName(fullName)
                 .emailAddress(emailAddress)
-                .dateOfBirth(dateOfBirth)
+                .dateOfBirth(LocalDate.of(1992, 3, 12))
                 .phoneNumber(phoneNumber)
                 .build();
         given(userRepository.findByPersonalNumber(userDto.getPersonalNumber())).willReturn(Optional.empty());
@@ -136,7 +138,7 @@ public class UserServiceTests {
                 .personalNumber(199006050018L)
                 .fullName("Denis Lean")
                 .emailAddress("denis.leal@gmail.com")
-                .dateOfBirth("12131992")
+                .dateOfBirth(LocalDate.of(1992, 3, 12))
                 .phoneNumber("9553069897")
                 .build();
         given(userRepository.findById(userId)).willReturn(Optional.of(user));

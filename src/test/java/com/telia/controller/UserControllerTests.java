@@ -9,7 +9,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +44,7 @@ public class UserControllerTests {
                 .personalNumber(19920605008l)
                 .phoneNumber("0764550738")
                 .emailAddress("siva.nadupuru@gmail.com")
-                .dateOfBirth("12031992")
+                .dateOfBirth(LocalDate.of(1992, 3, 12))
                 .fullName("Siva Nadupuru")
                 .build();
         given(userService.createUser(any(UserDto.class)))
@@ -50,6 +54,8 @@ public class UserControllerTests {
         ResultActions response = mockMvc.perform(post("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(user)));
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+        String formattedDate = formatter.format(user.getDateOfBirth());
 
         // then - verify the result or output using assert statements
         response.andDo(print()).
@@ -59,7 +65,7 @@ public class UserControllerTests {
                 .andExpect(jsonPath("$.fullName",
                         is(user.getFullName())))
                 .andExpect(jsonPath("$.dateOfBirth",
-                        is(user.getDateOfBirth())))
+                        is(formattedDate)))
                 .andExpect(jsonPath("$.emailAddress",
                         is(user.getEmailAddress())))
         .andExpect(jsonPath("$.phoneNumber",
@@ -72,8 +78,8 @@ public class UserControllerTests {
     public void givenListOfUsers_whenGetAllUsers_thenReturnUsersList() throws Exception{
         // given - precondition or setup
         List<UserDto> listOfUsers = new ArrayList<>();
-        listOfUsers.add(UserDto.builder().fullName("Siva Nadupuru").dateOfBirth("12031992").personalNumber(199206050018l).emailAddress("siva.nadupuru@gmail.com").build());
-        listOfUsers.add(UserDto.builder().fullName("Tony Richard").dateOfBirth("12031972").personalNumber(199306050018l).emailAddress("tony.richard@gmail.com").build());
+        listOfUsers.add(UserDto.builder().fullName("Siva Nadupuru").dateOfBirth(LocalDate.of(1992, 3, 12)).personalNumber(199206050018l).emailAddress("siva.nadupuru@gmail.com").build());
+        listOfUsers.add(UserDto.builder().fullName("Tony Richard").dateOfBirth(LocalDate.of(1992, 3, 12)).personalNumber(199306050018l).emailAddress("tony.richard@gmail.com").build());
         given(userService.getAllUsers()).willReturn(listOfUsers);
         // when -  action or the behaviour that we are going test
         ResultActions response = mockMvc.perform(get("/api/users"));
@@ -92,14 +98,14 @@ public class UserControllerTests {
                 .personalNumber(199006050018L)
                 .fullName("Denis Leal")
                 .emailAddress("denis.leal@gmail.com")
-                .dateOfBirth("12131992")
+                .dateOfBirth(LocalDate.of(1992, 3, 12))
                 .phoneNumber("9553069897")
                 .build();
         UserDto updatedUser = UserDto.builder()
                 .personalNumber(199006050018L)
                 .fullName("Dan papa")
                 .emailAddress("Dan.papa@gmail.com")
-                .dateOfBirth("12131993")
+                .dateOfBirth(LocalDate.of(1992, 3, 12))
                 .phoneNumber("9553069899")
                 .build();
         given(userService.getUserById(userId)).willReturn(Optional.of(savedUser));
@@ -110,6 +116,8 @@ public class UserControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updatedUser)));
 
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+        String formattedDate = formatter.format(updatedUser.getDateOfBirth());
 
         // then - verify the output
         response.andExpect(status().isOk())
@@ -117,7 +125,7 @@ public class UserControllerTests {
                 .andExpect(jsonPath("$.phoneNumber", is(updatedUser.getPhoneNumber())))
                 .andExpect(jsonPath("$.fullName", is(updatedUser.getFullName())))
                 .andExpect(jsonPath("$.personalNumber", is(updatedUser.getPersonalNumber())))
-                 .andExpect(jsonPath("$.dateOfBirth", is(updatedUser.getDateOfBirth())))
+                 .andExpect(jsonPath("$.dateOfBirth", is(formattedDate)))
                 .andExpect(jsonPath("$.emailAddress", is(updatedUser.getEmailAddress())));
 
     }
